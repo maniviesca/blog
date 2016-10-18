@@ -9,7 +9,7 @@
 <h1><?=$mensaje?></h1>
 <a href="<?= base_url()?>formularios/css/form.html">Comentar post</a>
 <a href="<?= base_url()?>formularios/css/post.html">Postear</a>
-<a href="<?= base_url()?>formularios/css/control_usuarios.html">Control de usuarios</a>
+<a href="<?= base_url()?>views/usuarios.php">Control de usuarios</a>
 </div>
 </body>
 </html>

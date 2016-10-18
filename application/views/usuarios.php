@@ -2,12 +2,11 @@
 <html>
 <head>
 	<title>Control de usuarios</title>
-	<link rel="stylesheet" type="html" href="formulario.css">
+	<link rel="stylesheet" type="text/css" href="home.css">
 </head>
 <body>
-<a href="<?= base_url()?>formularios/css/crear_usuario.html">Crear Usuario</a>
+<a href="<?= base_url()?>views/alta_usuario">Crear Usuario</a>
 <a href="<?= base_url()?>formularios/css/post.html">Eliminar Usuario</a>
-
 
 </body>
 </html>
