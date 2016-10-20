@@ -5,11 +5,9 @@
                     <div class="site-heading">
                         <h1><?=$Post?></h1>
                         <hr class="small">
-                        <span class="subheading"><?=$Descripcion?></span>
+                        <span class="subheading"><?=$Descripcion?> <?=$Fecha?></span>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
-

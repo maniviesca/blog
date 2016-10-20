@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Comentario</title>
-	<link rel="stylesheet" type="text/css" href="formulario.css">
+	<link rel="stylesheet" type="text/css" href="formularios/css/formulario">
 </head>
 <body>
 <form class_'contacto'>

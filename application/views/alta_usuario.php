@@ -14,7 +14,7 @@
 	<div><input type="text" value=""></div>
 	<div><label>Validar contraseña:</label></div>
 	<div><input type="text" value=""></div>
-	<div><input type="submit" value="Crear usuario"></div>
+	<div><input type="submit" value="Registrarse"></div>
 </form>
 
 </body>
