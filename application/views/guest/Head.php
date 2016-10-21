@@ -21,8 +21,10 @@
 
    
     <title><?=$title?></title>
-
- <!-- jQuery -->
+    <?php
+    echo load_bootstrap();
+    ?>
+    <!-- jQuery--> 
     <script src="<?= base_url()?>plantilla/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -37,6 +39,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?= base_url()?>plantilla/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    
     <!-- Theme CSS -->
     <link href="<?= base_url()?>plantilla/css/clean-blog.min.css" rel="stylesheet">
 

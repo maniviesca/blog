@@ -12,17 +12,30 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li> <a href="<?= base_url()?>Postear">Postear</a> </li>
-                    <li> <a href="<?= base_url()?>Crear">Registrarse</a> </li>
+                    
+                    
+                    <?php if ($this->session->userdata('login')){?>
+                    <li> 
+                        <a href="<?=base_url()?>Perfil/index">Perfil</a> 
+                    </li>
+                    <li> 
+                        <a href="<?=base_url()?>Login/logout">Cerrar sesion</a> 
+                    </li>
+                    
+                    <?php
+                             } else {
+                      ?>
+                    <!--<li> <a href="<?= base_url()?>Postear">Postear</a> </li>-->
+                    <li> <a href="<?= base_url()?>Registrar/index">Registrarse</a> </li>
                     <li class='dropdown'>
                       <a class='dropdown-toggle' href='#' data-toggle='dropdown' style="background: none;">Iniciar sesion <strong class='caret'></strong></a>
                       <div class='dropdown-menu' style='padding: 10px; padding-bottom: 0px; background: none; width: 400px;'>
                         <form action="<?=base_url()?>Login" method='post' accept-charset='UTF-8' role="form">
                           <div class='form-group'>
-                            <input class='form-control large' style='text-align: center;' type='text' name='text' placeholder='usuario'/>
+                            <input class='form-control large' style='text-align: center;' type='email' name='email' placeholder='email'/>
                           </div>
                           <div class='form-group'>
-                            <input class='form-control large' style='text-align: center;' type='password' name='password' placeholder='contraseña' />
+                            <input class='form-control large' style='text-align: center;' type='password' name='password' placeholder='contraseña'/>
                           </div>
                           <div class='form-group'>
                             <button class='btn btn-primary' style='width: 380px;' type='submit'>INGRESAR</button>
@@ -30,6 +43,8 @@
                           </form>
                       </div>
                     </li>
+                  
+                    <?php }?>
                 </ul>
             </div>
                 

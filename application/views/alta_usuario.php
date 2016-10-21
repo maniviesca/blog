@@ -10,6 +10,8 @@
 	<div><input type="text" value=""></div>
 	<div><label>Nombre de usuario:</label></div>
 	<div><input type="text" value=""></div>
+	<div><label>Correo electronico:</label></div>
+	<div><input type="text" value=""></div>
 	<div><label>Contraseña:</label></div>
 	<div><input type="text" value=""></div>
 	<div><label>Validar contraseña:</label></div>

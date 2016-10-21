@@ -12,7 +12,7 @@ class Insert_post extends CI_Model
 				'contenido'	=>		$this->input->post('contenido'),
 				'autor'		=>		$this->input->post('autor'),
 				'fecha'		=>		$this->input->post('fecha'));
-		$this->db->insert(post,$Data);
+		$this->db->insert('post',$Data);
 	}
 }
 

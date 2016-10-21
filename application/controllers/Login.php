@@ -8,11 +8,31 @@ class Login extends CI_Controller
 		$Email 	 	= $this->input->post('email');
 		$Password 	= $this->input->post('password');
 
-		//echo $Email . " " . $Password;
-		$Usuario = array('Usuario' => $Email,'id'=> 0,'login' => true);
-		$this->session->set_userdata($Usuario);
+		$this->load->model("Usuario");
+		$Fila = $this->Usuario->getUser($Email);
 
-		echo $this->session->userdata('email');
+		if($Fila != null){
+			if($Fila->pass_usuario == $Password){
+				$Usuario = array(	
+			'Email' => $Email,
+			'id'	=> $Fila->id_usuario,
+			'login' => true);
+				$this->session->set_userdata($Usuario);
+				header("Location:".base_url());
+			}else
+			{
+				header("Location:".base_url());
+			}
+		}else
+			{
+				header("Location:".base_url());
+			}		
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		header("Location:".base_url());
 	}
 	
 }
