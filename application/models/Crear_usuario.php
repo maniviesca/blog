@@ -1,18 +1,26 @@
-<? php
-
+<?php
 
 class Crear_usuario extends CI_Model
 {
+	public function getUser(){
+		return $this->db->get('usuario');
+
+	}
+
+
 	public function insert($Usuario = null)
 	{
 		if ($Usuario != null) 
 		{
-			$Nombre = $Usuario['nombre'];
-			$Contraseña = $Post['password'];
-			$Email = $Post['email'];
+			$Nombre = $Usuario['usuario'];
+			$Password = $Usuario['password'];
+			$Email = $Usuario['email'];
 		
-			$SQL = "INSERT INTO usuario(id_usuario,nom_usuario,pass_usuairo,mail_usuario, VALUES (null,'$Nombre','$Contraseña','$Email');";
-			if ($this->db->query($SQL)) 
+			$Sql ="INSERT INTO usuario(id_usuario,nom_usuario,pass_usuario,mail_usuario) VALUES (null,'$Nombre','$Password','$Email');";
+			//$SQL = "INSERT INTO usuario(id_usuario,nom_usuario,pass_usuario,mail_usuario, VALUES (null,'$Nombre','$Contraseña','$Email');";
+
+			
+			if ($this->db->query($Sql)) 
 			{
 				return true;
 			}

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class Imagen extends CI_Model {
+class File extends CI_Model {
  
         public function UploadImage($path = '', $message = '')
         {
@@ -11,7 +11,7 @@ class Imagen extends CI_Model {
                 $this->load->library('upload', $config);
                
                 if ( ! $this->upload->do_upload()){
-                        $error = $this->upload->display_errors();
+                        $Error = $this->upload->display_errors();
                         echo $this->html();
                         if($message == ''){ //cierre de php ?>
                                 <script type="text/javascript" charset="utf-8">
@@ -30,7 +30,7 @@ class Imagen extends CI_Model {
                 }
         }
  
-        public function html($value='')
+        public function html($Value='')
         {
                 return "
                 <html>

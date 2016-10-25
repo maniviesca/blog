@@ -5,6 +5,8 @@
 class Registrar extends CI_Controller
 {
 	
+	
+
 	public function index()
 	{
 		$Data = array('title' => 'Perfil');

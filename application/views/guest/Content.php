@@ -21,11 +21,9 @@
             <?php
                 }
             ?>
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Ver más &rarr;</a>
-                    </li>
-                </ul>
+                <?php 
+                echo $pagination 
+                ?>
             </div>
         </div>
     </div>
