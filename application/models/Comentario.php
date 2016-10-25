@@ -5,11 +5,13 @@ class Comentario extends CI_Model
 	
 	public function getComment()
 	{
-		return $this->db->get('comentario');
+		$this->db->get('comentario');
+		$this->db->get('post');
 	}
 
-	public function getId($Id = ''){
-		$Result = $this->db->query("SELECT * FROM comentario WHERE id_post = '" . $Id . "'");
+	public function getId($Name = ''){
+		$Result = $this->db->query("SELECT * FROM comentario WHERE id_post = '" . $Name . "'");
+		return $Result->row();
 	}
 	public function insert($Comentario = null){
 		if ($Comentario != null) 
@@ -19,7 +21,8 @@ class Comentario extends CI_Model
 			$Contenido = $Comentario['contenido'];
 			
 
-			$SQL = "INSERT INTO comentario(id_comentario,nom_usuario,titulo_comentario,cont_comentario,fecha_comentario) VALUES (null,'$Usuario','$Titulo','$Contenido',curdate());";
+			$SQL = "INSERT INTO comentario(id_comentario,id_usuario,titulo_comentario,cont_comentario,fecha_comentario) VALUES (null,'$Usuario','$Titulo','$Contenido',curdate());";
+
 			if ($this->db->query($SQL)) 
 			{
 				return true;

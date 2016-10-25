@@ -9,7 +9,7 @@
             	echo "<br>Contraseña:<br>";
             	echo form_password('password','');
                 echo "<br>Verificar contraseña:<br>";
-                echo form_password('password','');
+                echo form_password('passwordver','');
                 echo "<br>";
             	echo "Email:<br>";
             	echo form_input('email','');

@@ -1,3 +1,5 @@
+
+<? echo validation_errors();?>
 <header class="intro-header" style="background-image: url('<?=base_url()?>plantilla/img/home-bg.jpg')">
         <div class="container">
             <div class="row">
