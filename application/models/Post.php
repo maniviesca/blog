@@ -11,8 +11,15 @@ class Post extends CI_Model
 		$Result = $this->db->query("SELECT * FROM post WHERE id_post = '" . $Name . "'");
 		return  $Result ->row();
 	}
-	public function insert($Post = null)
+	public function insert($Tabla,$Data)
 	{
+		return $this->db->insert($Tabla,$Data);
+		
+
+
+
+		/*
+		la funcion insert tenia de parametros $Post = null
 		if ($Post != null) 
 		{
 			
@@ -31,7 +38,7 @@ class Post extends CI_Model
 			{
 				return false;
 			}
-		}
+		}*/
 	}
 
 	/*public function getPostByYearName($Year = '',$Name =''){

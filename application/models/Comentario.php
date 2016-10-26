@@ -13,7 +13,9 @@ class Comentario extends CI_Model
 		$Result = $this->db->query("SELECT * FROM comentario WHERE id_post = '" . $Name . "'");
 		return $Result->row();
 	}
-	public function insert($Comentario = null){
+	public function insert($Tabla,$Data){
+		
+		
 		if ($Comentario != null) 
 		{
 			$Usuario = $Comentario['usuario'];

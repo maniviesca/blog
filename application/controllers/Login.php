@@ -16,11 +16,14 @@ class Login extends CI_Controller
 				$Usuario = array(	
 			'Email' => $Email,
 			'id'	=> $Fila->id_usuario,
+			'nom_usuario' =>$Fila->nom_usuario,
 			'login' => true);
-				$this->session->set_userdata($Usuario);
+				$this->session->set_userdata('login',$Usuario);
 				header("Location:".base_url());
+
 			}else
 			{
+				//redirect()
 				header("Location:".base_url());
 			}
 		}else
