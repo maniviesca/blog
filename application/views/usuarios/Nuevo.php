@@ -10,7 +10,9 @@
                 <div class="error">
                  <?php
                 echo validation_errors();
-                 ?>   
+                 ?> 
+
+
                 </div>
             	<div class="btn-toolbar">
 
@@ -24,7 +26,8 @@
                 'id' => 'titulo',
                 'maxlength' => '200',
                 'size' => '50'    ,
-                'style'=> 'width:40%');
+                'style'=> 'width:40%',
+                'required');
                 echo "<br>Titulo: <br>";
                 echo form_input($Data);
 

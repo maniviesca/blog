@@ -12,7 +12,7 @@ class Login extends CI_Controller
 		$Fila = $this->Usuario->getUser($Email);
 
 		if($Fila != null){
-			if($Fila->pass_usuario == $Password){
+			if(password_verify($Password,$Fila->pass_usuario)){
 				$Usuario = array(	
 			'Email' => $Email,
 			'id'	=> $Fila->id_usuario,

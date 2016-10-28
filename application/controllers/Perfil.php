@@ -1,5 +1,5 @@
 <?php
-//if (! defined('BASEPATH')) exit ('No direct script access allowed');
+if (! defined('BASEPATH')) exit ('No direct script access allowed');
 
 
 class Perfil extends CI_Controller

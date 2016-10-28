@@ -417,7 +417,7 @@ if(!function_exists('form_input_file')){
 	function form_input_file($texto = 'Seleccionar archivo')
 	{	
 		$div  = "<div class='form-group'>";
-		$div .= "<input name='userfile' type='file' id='userfile' class='filestyle' data-icon='true' data-buttonText='$texto' required=''>";	
+		$div .= "<input name='userfile' type='file' id='userfile' class='filestyle' data-icon='true' data-buttonText='$texto'>";	
 		$div .= "</div>";
 		return $div;
 	}

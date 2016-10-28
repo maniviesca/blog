@@ -1,13 +1,14 @@
 <?php
 
-
+if(!defined('BASEPATH'))
+	exit('No direct script acces allowed');
 class Contenido extends CI_Controller
 {
-	/*public function __construct()
+	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
-	}*/
+	$this->load->library('Bcrypt');
+	}
 
 	public function Post($Name)//vista del post 
 	{	
@@ -23,7 +24,7 @@ class Contenido extends CI_Controller
 			'Descripcion' =>$Fila->nom_usuario,
 			'Fecha'=>$Fila->fecha_post,
 			'Imagen'=>$Fila->Imagen);
-		$this->security->xss_clean($Data);
+		//$this->security->xss_clean($Data);
 		$this->load->view("/Posts/Header_post",$Data);
 		$Data = array('Contenido' => $Fila->cont_post );
 		$this->load->view("/guest/Post_vista",$Data);
@@ -89,13 +90,13 @@ public function userNuevo()//crear usuario nuevo
 			$this->form_validation->set_message('required','Este campo es obligatorio');
 				if ($this->form_validation->run()== TRUE) {
 				$Data = array(
-				'titulo_post' => $this->input->post('titulo'),
-				'cont_post' =>$this->input->post('contenido'),
+				'titulo_post' =>htmlspecialchars(( $this->input->post('titulo'))),
+				'cont_post' =>htmlspecialchars(($this->input->post('contenido'))),
 				'Imagen' => $this->File->UploadImage('./public/img','No es posible subir la imagen'),
 				'nom_usuario' => $this->session->userdata['login']['nom_usuario']);
 				//echo $this->session->userdata('email');
 
-				$this->Post->insert('post',$Data);
+				$this->Post->insert('post',$this->security->xss_clean($Data));
 				$this->db->escape($Data);
 				redirect('Correctamente/Posteado');
 				//header("Location". base_url() . "Correctamente");//arreglar esto				}
@@ -121,17 +122,18 @@ public function userNuevo()//crear usuario nuevo
 	{
 		$this->load->model("Crear_usuario");
 		$this->load->library('form_validation');
+	//S	$this->load->library('Bcrypt');
 		$this->form_validation->set_rules('usuario', 'usuario','required|is_unique[usuario.nom_usuario]');
 		$this->form_validation->set_rules('password', 'password','required|matches[passwordver]');
-		$this->form_validation->set_rules('passwordver', 'passwordver','required');
+		$this->form_validation->set_rules('passwordver', 'passwordver','required|matches[password]');
 		$this->form_validation->set_rules('email', 'email','required|valid_email');
 		$this->form_validation->set_message('required','Este campo es obligatorio');
 		if ($this->form_validation->run()== TRUE) {
 			$Usuario = array(
-			'nom_usuario' => $this->input->post('usuario'),
-			'pass_usuario' => $this->input->post('password'),
+			'nom_usuario' => htmlspecialchars($this->input->post('usuario')),
+			'pass_usuario' => password_hash($this->input->post('password'),PASSWORD_BCRYPT),
 			//'passwordver' =>$this->input->post('passwordver'),
-			'mail_usuario' => $this->input->post('email') );
+			'mail_usuario' => htmlspecialchars($this->input->post('email')));
 			$this->Crear_usuario->insert('usuario',$Usuario);
 			//$Return = $this->input->post('usuario',$Usuario);
 			header("Location:" . base_url(). "Correctamente");
@@ -161,9 +163,9 @@ public function userNuevo()//crear usuario nuevo
 			$Comentario = array(
 				'nom_usuario' => $this->session->userdata['login']['nom_usuario'],
 				'id_post' => $this->input->post('id_post'),
-				'titulo_comentario' => $this->input->post('titulo'),
-				'cont_comentario'=> $this->input->post('contenido'));
-		$this->Comentario->insert('comentario',$Comentario);
+				'titulo_comentario' => htmlspecialchars($this->input->post('titulo')),
+				'cont_comentario'=> htmlspecialchars($this->input->post('contenido')));
+		$this->Comentario->insert('comentario',$this->security->xss_clean($Comentario));
 		redirect("Correctamente/Comentado");
 		}
 		else{

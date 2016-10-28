@@ -1,4 +1,6 @@
 <?php
+if(!defined('BASEPATH'))
+	exit('No direct script acces allowed');
 class Home extends CI_Controller
 {
 public function index()
