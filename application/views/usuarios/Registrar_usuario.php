@@ -25,6 +25,7 @@
             	echo form_input('email','');
             	echo "<br>";
             	echo form_submit('crear','   Registrarse   ');
+                
             	echo form_close();
             	?>
 

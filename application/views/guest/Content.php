@@ -15,17 +15,13 @@
                         <?=$Fila->cont_post?>
                     </h3>
             </a>
-                    <p class="post-meta">Posted by <?=$Fila->autor_post?></a> on <?=$Fila->fecha_post?></p>
+                    <p class="post-meta">Posted by <?=$Fila->nom_usuario?></a> on <?=$Fila->fecha_post?></p>
                 </div>
                 <hr>
             <?php
                 }
             ?>
-                <ul class= "pagination">
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                </ul>
+               
             </div>
         </div>
     </div>

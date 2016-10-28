@@ -14,14 +14,16 @@
                 </div>
             	<?php
             	echo form_open_multipart('Contenido/comment');
-            	echo "<br>Titulo:<br>";
+            	
+                echo "<br>Titulo:<br>";
             	echo form_input('titulo','');
                 echo "<br>";
                 echo "<br>Contenido:";
             	echo form_input_textarea('contenido','');
             	//echo "<br>";
             	echo form_submit('comentar','          Comentar         ');
-            	echo form_close();
+            	echo form_hidden('id_post',$this->uri->segment(2));
+                echo form_close();
             	?>
 
             </div>

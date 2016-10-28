@@ -20,7 +20,7 @@
 
 
    
-    <title><?=$title?></title>
+   <title><?=$title?></title>
     <?php
     echo load_bootstrap();
     ?>

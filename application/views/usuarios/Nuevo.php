@@ -9,12 +9,15 @@
 
                 <div class="error">
                  <?php
-                 echo validation_errors();
+                echo validation_errors();
                  ?>   
                 </div>
-            	<?php
+            	<div class="btn-toolbar">
+
+                <?php
             	
                 echo form_open_multipart('Contenido/insert');//TITULO
+                
                 $Data= array
                 (
                 'name' =>  'titulo',

@@ -10,8 +10,8 @@ class Crear_usuario extends CI_Model
 	public function insert($Tabla,$Data)
 	{
 
-		//return $this->db->insert($Tabla,$Data);
-		if ($Usuario != null) 
+		return $this->db->insert($Tabla,$Data);
+		/*if ($Usuario != null) 
 		{
 			$Nombre = $Usuario['usuario'];
 			$Password = $Usuario['password'];
@@ -26,7 +26,7 @@ class Crear_usuario extends CI_Model
 			{
 				return false;
 			}
-		}
+		}*/
 	}
 }
 ?>

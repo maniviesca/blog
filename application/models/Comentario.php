@@ -5,18 +5,21 @@ class Comentario extends CI_Model
 	
 	public function getComment()
 	{
-		$this->db->get('comentario');
-		$this->db->get('post');
+		return $this->db->get('comentario');
+		
 	}
 
-	public function getId($Name = ''){
-		$Result = $this->db->query("SELECT * FROM comentario WHERE id_post = '" . $Name . "'");
-		return $Result->row();
+	public function getPostId($Name = ''){
+		$Result = $this->db->get_where('comentario',array('id_post' => $Name));
+		return $Result->result();
+		//$Result = $this->db->query("SELECT * FROM comentario WHERE id_post = '" . $Name . "'");
+		//return $Result->row();
 	}
+
 	public function insert($Tabla,$Data){
+		return $this->db->insert($Tabla,$Data);
 		
-		
-		if ($Comentario != null) 
+		/*if ($Comentario != null) 
 		{
 			$Usuario = $Comentario['usuario'];
 			$Titulo = $Comentario['titulo'];
@@ -33,7 +36,7 @@ class Comentario extends CI_Model
 			{
 				return false;
 			}
-		}
+		}*/
 	}
 }
 
