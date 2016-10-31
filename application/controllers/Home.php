@@ -19,6 +19,7 @@ public function index()
 	
 
 	$this->load->view("/guest/Content",$Data);
+	
 	$this->load->view("/guest/Footer");
 	//$this->load->view("Home_view",$Data);
 

@@ -7,6 +7,7 @@ class Login extends CI_Controller
 	{
 		$Email 	 	= $this->input->post('email');
 		$Password 	= $this->input->post('password');
+	
 
 		$this->load->model("Usuario");
 		$Fila = $this->Usuario->getUser($Email);

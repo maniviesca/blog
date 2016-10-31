@@ -19,24 +19,10 @@ class Comentario extends CI_Model
 	public function insert($Tabla,$Data){
 		return $this->db->insert($Tabla,$Data);
 		
-		/*if ($Comentario != null) 
-		{
-			$Usuario = $Comentario['usuario'];
-			$Titulo = $Comentario['titulo'];
-			$Contenido = $Comentario['contenido'];
-			
+	}
+	public function delete($Id){
+		return $this->db->delete('comentario',array('id_post' => $Id));
 
-			$SQL = "INSERT INTO comentario(id_comentario,id_usuario,titulo_comentario,cont_comentario,fecha_comentario) VALUES (null,'$Usuario','$Titulo','$Contenido',curdate());";
-
-			if ($this->db->query($SQL)) 
-			{
-				return true;
-			}
-			else 
-			{
-				return false;
-			}
-		}*/
 	}
 }
 

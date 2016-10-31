@@ -26,6 +26,7 @@
                              } else {
                       ?>
                     <!--<li> <a href="<?= base_url()?>Postear">Postear</a> </li>-->
+                  
                     <li> <a href="<?= base_url()?>Registrar/index">Registrarse</a> </li>
                     <li class='dropdown'>
                       <a class='dropdown-toggle' href='#' data-toggle='dropdown' style="background: none;">Iniciar sesion <strong class='caret'></strong></a>

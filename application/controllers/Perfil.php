@@ -17,17 +17,17 @@ class Perfil extends CI_Controller
 		$Data = array('title' => 'Perfil');
 		$this->load->view('guest/Head', $Data);
 		$this->load->view("/guest/Navegacion");
-		$Data = array('Post' => 'Bienvenido a tu perfil'  ,'Usuario' =>$this->session->userdata['login']['nom_usuario'],'Descripcion' =>'Aqui podras ver y crear posts<br>');
+		$Data = array('Post' => 'Bienvenido a tu perfil'  ,'Usuario' =>$this->session->userdata['login']['nom_usuario'],'Descripcion' =>'Aqui podras ver y crear tus posts<br>');
 		$this->load->view("/usuarios/Perfil",$Data);
 		$Usuario = $this->session->userdata['login']['nom_usuario'];	
 		$Fila = $this->Post->getPostbyUser($Usuario);
 		$Data = array(
-			'Consulta'=>$Fila);
+			'consulta'=>$Fila);
 		
 		//$this->load->helper("bootstrap_helper")
 		 
 		$this->load->view("/usuarios/Content_user");
-		//$this->load->view("usuarios/Body_perfil");
+		$this->load->view("usuarios/Body_perfil",$Data);
 		$this->load->view("/guest/Footer");
 	}
 }

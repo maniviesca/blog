@@ -4,6 +4,8 @@ if(!defined('BASEPATH'))
 	exit('No direct script acces allowed');
 class Contenido extends CI_Controller
 {
+
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -26,7 +28,8 @@ class Contenido extends CI_Controller
 			'Imagen'=>$Fila->Imagen);
 		//$this->security->xss_clean($Data);
 		$this->load->view("/Posts/Header_post",$Data);
-		$Data = array('Contenido' => $Fila->cont_post );
+		$Data = array('Contenido' => $Fila->cont_post,
+		'Usuario' =>$Fila->nom_usuario );
 		$this->load->view("/guest/Post_vista",$Data);
 		$Comentarios = $this->Comentario->getPostId($Name);
 		//$this->security->xss_clean($Comentarios);
@@ -40,6 +43,7 @@ class Contenido extends CI_Controller
 			$this->load->view("Mensaje");
 		}
 		$this->load->view("/guest/Footer");
+		$Id = $this->uri->segment(3);
 	}
 	
 
@@ -85,14 +89,14 @@ public function userNuevo()//crear usuario nuevo
 		//	var_dump($this->session->userdata('nom_usuario'));exit;
 			$this->load->model("File");
 			$this->load->library('form_validation');
-			$this->form_validation->set_rules('titulo', 'titulo','required');
-			$this->form_validation->set_rules('contenido', 'contenido','required');
+			$this->form_validation->set_rules('titulo', 'titulo','trim|required');
+			$this->form_validation->set_rules('contenido', 'contenido','trim|required');
 			$this->form_validation->set_message('required','Este campo es obligatorio');
 				if ($this->form_validation->run()== TRUE) {
 				$Data = array(
 				'titulo_post' =>htmlspecialchars(( $this->input->post('titulo'))),
 				'cont_post' =>htmlspecialchars(($this->input->post('contenido'))),
-				'Imagen' => $this->File->UploadImage('./public/img','No es posible subir la imagen'),
+				'Imagen' => $this->File->UploadImage('/var/www/blog.com/public_html/codeigniter/public/img','No es posible subir la imagen'),
 				'nom_usuario' => $this->session->userdata['login']['nom_usuario']);
 				//echo $this->session->userdata('email');
 
@@ -123,10 +127,10 @@ public function userNuevo()//crear usuario nuevo
 		$this->load->model("Crear_usuario");
 		$this->load->library('form_validation');
 	//S	$this->load->library('Bcrypt');
-		$this->form_validation->set_rules('usuario', 'usuario','required|is_unique[usuario.nom_usuario]');
-		$this->form_validation->set_rules('password', 'password','required|matches[passwordver]');
-		$this->form_validation->set_rules('passwordver', 'passwordver','required|matches[password]');
-		$this->form_validation->set_rules('email', 'email','required|valid_email');
+		$this->form_validation->set_rules('usuario', 'usuario','trim|required|is_unique[usuario.nom_usuario]');
+		$this->form_validation->set_rules('password', 'password','trim|required|matches[passwordver]');
+		$this->form_validation->set_rules('passwordver', 'passwordver','trim|required|matches[password]');
+		$this->form_validation->set_rules('email', 'email','trim|required|valid_email|is_unique[usuario.mail_usuario]');
 		$this->form_validation->set_message('required','Este campo es obligatorio');
 		if ($this->form_validation->run()== TRUE) {
 			$Usuario = array(
@@ -157,8 +161,8 @@ public function userNuevo()//crear usuario nuevo
 	{
 		$this->load->model("Comentario");
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('titulo', 'titulo','required');
-		$this->form_validation->set_rules('contenido', 'contenido','required');
+		$this->form_validation->set_rules('titulo', 'titulo','trim|required');
+		$this->form_validation->set_rules('contenido', 'contenido','trim|required');
 		if ($this->form_validation->run()== TRUE) {
 			$Comentario = array(
 				'nom_usuario' => $this->session->userdata['login']['nom_usuario'],
@@ -172,16 +176,19 @@ public function userNuevo()//crear usuario nuevo
 				redirect("Correctamente/noComentado");
 			
 				}
-		
+	}
 
-		//$Comentario = $this->input->post();
-		//$Bool = $this->Comentario->insert($Comentario);
-		//'id_post'=>$this->input->post('id_post');
-		/*if($Bool){
-			header("Location:" . base_url(). "Contenido/post");
-		}else{
-			echo "No se pudo comentar el post";
-		}*/
+	public function eliminar()
+	{
+		$this->load->model('Post');
+		$this->load->model('Comentario');
+		//$Id = $this->uri->segment(2);
+		$Id = $this->input->post('id_post');
+		$this->Post->delete($Id);
+		$this->Comentario->delete($Id);
+		//echo $Id;
+		redirect("Correctamente/Eliminado");
+
 	}
 }
 

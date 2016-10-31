@@ -41,5 +41,14 @@ public function noComentado(){
 		//$this->load->helper("bootstrap_helper")
 		$this->load->view("/guest/Footer");	
 }
+public function Eliminado(){
+	$Data = array('title' => 'Comentar');
+		$this->load->view('guest/Head', $Data);
+		$this->load->view("/guest/Navegacion");
+		$Data = array('Post' => 'Eliminado' ,'Descripcion' =>'EL post ha sido eliminado correctamente');
+		$this->load->view("/guest/Header",$Data);
+		//$this->load->helper("bootstrap_helper")
+		$this->load->view("/guest/Footer");	
+}
 }
 ?>
