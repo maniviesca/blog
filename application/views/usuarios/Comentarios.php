@@ -22,7 +22,7 @@
             	echo form_input_textarea('contenido','');
             	//echo "<br>";
             	echo form_submit('comentar','          Comentar         ');
-            	echo form_hidden('id_post',$this->uri->segment(2));
+            	echo form_hidden('id_post',$this->uri->segment(3));
                 echo form_close();
             	?>
 

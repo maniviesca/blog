@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <a class="navbar-brand" href="http://blog.com/codeigniter/">INICIO</a>
+                <a class="navbar-brand" href="http://blog.com/">INICIO</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

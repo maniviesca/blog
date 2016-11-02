@@ -25,26 +25,26 @@
     echo load_bootstrap();
     ?>
     <!-- jQuery--> 
-    <script src="<?= base_url()?>plantilla/jquery/jquery.min.js"></script>
+    <script src="plantilla/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="<?= base_url()?>plantilla/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plantilla/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="<?= base_url()?>plantilla/js/jqBootstrapValidation.js"></script>
-    <script src="<?= base_url()?>plantilla/js/contact_me.js"></script>
+    <script src="plantilla/js/jqBootstrapValidation.js"></script>
+    <script src="plantilla/js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
-    <script src="<?= base_url()?>plantilla/js/clean-blog.min.js"></script>
+    <script src="plantilla/js/clean-blog.min.js"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="<?= base_url()?>plantilla/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="plantilla/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     
     <!-- Theme CSS -->
-    <link href="<?= base_url()?>plantilla/css/clean-blog.min.css" rel="stylesheet">
+    <link href="plantilla/css/clean-blog.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<?= base_url()?>plantilla/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="plantilla/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 

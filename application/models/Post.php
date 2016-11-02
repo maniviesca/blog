@@ -10,7 +10,7 @@ class Post extends CI_Model
 	{
 		$Result = $this->db->get_where('post',array('id_post' => $Name));
 		//$Result = $this->db->query("SELECT * FROM post WHERE id_post = '" . $Name . "'");
-		return  $Result ->row();
+		return  $Result->row();
 	}
 	public function getPostByUser($User = '')
 	{
@@ -25,7 +25,11 @@ class Post extends CI_Model
 	public function delete($Id)
 	{
 		return $this->db->delete('post',array('id_post' => $Id));
-
-	
 	}
+	public function actualizar($Name,$Data)
+	{
+		$this->db->where('id_post', $Name);
+		$query = $this->db->update('post',$Data);
+	}
+
 }

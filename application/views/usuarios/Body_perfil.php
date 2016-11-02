@@ -5,7 +5,7 @@
             foreach ($consulta as $Fila) {
             ?>
             <div class="post-preview">
-            <a href="<?=base_url()?>post/<?=$Fila->id_post?>">
+            <a href="/Contenido/post/<?=$Fila->id_post?>">
                     <h2 class="post-title">
                         <?=$Fila->titulo_post?>
                     </h2>
