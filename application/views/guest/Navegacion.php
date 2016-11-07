@@ -38,6 +38,7 @@
                           <div class='form-group'>
                             <input class='form-control large' style='text-align: center;' type='password' name='password' placeholder='contraseña'/>
                           </div>
+                          <div><a href="<?=base_url()?>Contenido/password" >Olvide mi contraseña</a></div>
                           <div class='form-group'>
                             <button class='btn btn-primary' style='width: 380px;' type='submit'>INGRESAR</button>
                           </div>

@@ -19,7 +19,8 @@
                 <?php
                 echo form_open_multipart('Contenido/actualizar');//TITULO
               
-                echo form_hidden($Id,'id_post');
+                echo form_hidden('id_post',$Id);
+
                 $Data= array
                 (
                 'name' =>  'titulo',
@@ -34,24 +35,16 @@
                 echo "<br>";
                 echo "<br>Contenido: <br>";
                 echo form_textarea('contenido',$Contenido);   //CONTENIDO             
-               /* echo "<br>";
+               echo "<br>";
                 $Data=  array(
                     'name' => 'Imagen',
-                    'id' =>'Imagen' );
-                echo form_upload($Data,'Imagen');*///IMAGEN
-            
-
-             /*   $Data= array
-                (
-                'name' =>  'autor',
-                'id' => 'autor',
-                'maxlength' => '200',
-                'size' => '50'    ,
-                'style'=> 'width:40%',);
-                echo "Autor:<br>";
-                echo form_input($Data);
-                */echo "<br>";
-                echo form_submit('editar','   Editar post   ');//BOTON
+                    'id' =>'Imagen');
+                echo form_upload($Data);//IMAGEN
+                ?>
+                 <img src="/public/img/<?php echo $Imagen?>" width = 200 height =150>
+                <?php
+                echo "<br>";
+                echo form_submit('actualizar','   Actualizar post   ');//BOTON
                 echo form_close();
                 ?>
 

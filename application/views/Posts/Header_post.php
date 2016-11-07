@@ -1,7 +1,7 @@
 
 <? echo validation_errors();?>
 <header >
-<body background="/public/img/<?php echo $Imagen?>"> 
+<body > 
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -11,7 +11,9 @@
                         <hr class="small">
                      
                       <h4>  <span class="subheading"><?=$Descripcion?> <br> <?=$Fecha?></span></h4>
-                     
+                      <?php if ($Imagen != NULL){?>
+                     <img src="/public/img/<?php echo $Imagen?>" width = 750 height =350>
+                   <?php } ?>
                     </div>
                 </div>
             </div>

@@ -20,23 +20,24 @@ class Login extends CI_Controller
 			'nom_usuario' =>$Fila->nom_usuario,
 			'login' => true);
 				$this->session->set_userdata('login',$Usuario);
-				header("Location:".base_url());
+				redirect("/");
 
 			}else
 			{
-				//redirect()
-				header("Location:".base_url());
+				redirect("/");
+				//header("Location:".base_url());
 			}
 		}else
 			{
-				header("Location:".base_url());
+				redirect("/");
+				//header("Location:".base_url());
 			}		
 	}
 
 	public function logout()
 	{
 		$this->session->sess_destroy();
-		header("Location:".base_url());
+		redirect("/");
 	}
 	
 }

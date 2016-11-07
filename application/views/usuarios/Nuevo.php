@@ -28,13 +28,13 @@
                 'required');
                 echo "<br>Titulo: <br>";
                 echo form_input($Data);
-
+                
             	echo form_input_textarea('contenido','Contenido:');   //CONTENIDO             
             	echo "<br>";
                 $Data=  array(
                     'name' => 'Imagen',
-                    'id' =>'Imagen' );
-            	echo form_upload($Data,'Imagen');//IMAGEN
+                    'id' =>'Imagen');
+            	echo form_upload($Data);//IMAGEN
             
 
              /*   $Data= array

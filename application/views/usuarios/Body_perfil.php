@@ -6,6 +6,7 @@
             ?>
             <div class="post-preview">
             <a href="/Contenido/post/<?=$Fila->id_post?>">
+             
                     <h2 class="post-title">
                         <?=$Fila->titulo_post?>
                     </h2>
