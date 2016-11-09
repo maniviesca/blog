@@ -24,7 +24,9 @@ class Login extends CI_Controller
 
 			}else
 			{
+				$this->session->set_flashdata('login','Usuario o contraseña incorrectos');
 				redirect("/");
+				
 				//header("Location:".base_url());
 			}
 		}else

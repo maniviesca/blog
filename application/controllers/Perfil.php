@@ -42,18 +42,46 @@ class Perfil extends CI_Controller
 	{
 		$this->load->library('form_validation');
 		$this->load->model('Crear_usuario');
-		$this->form_validation->set_rules('correo', 'correo','trim|required|valid_email');
-		$this->form_validation->set_rules('password', 'password','trim|required|matches[verificar]');
-		$this->form_validation->set_rules('verificar', 'verificar','trim|required');
+		$this->form_validation->set_rules('correo', 'Correo','trim|required|valid_email');
+		$this->form_validation->set_rules('password', 'Contraseña','trim|required|matches[verificar]');
+		$this->form_validation->set_rules('verificar', 'Verificar Contraseña','trim|required');
+		$this->form_validation->set_message('required','El campo %s es obligatorio');
+		$this->form_validation->set_message('valid_email','Favor de ingresar un correo electronico válido');
+		$this->form_validation->set_message('matches','Las contraseñas no coinciden');
 		if ($this->form_validation->run()== TRUE) 
 		{
-
-			$Correo = $this->input->post('correo');
-			$Data = array(
-				'pass_usuario' => password_hash($this->input->post('password'),PASSWORD_BCRYPT));
-			$this->Crear_usuario->cambiarPassword($Correo,$Data);
-			echo "si se pudo";
+			
+			$Correo = htmlspecialchars($this->input->post('correo'));
+			$Fila = $this->Crear_usuario->getUsuario($Correo);
+			if($Correo == $Fila->mail_usuario)
+			{
+					$Correo = htmlspecialchars($this->input->post('correo'));
+					$Data = array(
+						'pass_usuario' => password_hash($this->input->post('password'),PASSWORD_BCRYPT));
+					$this->Crear_usuario->cambiarPassword($Correo,$Data);
+					redirect("Correctamente/password");
+			}
+			else
+			{
+				$mail = "Este correo electrónico no está registrado";
+				$this->session->set_flashdata('correo_change',$mail);
+				redirect("Perfil/cambiarPassword");
+			}
 		}
+		else
+		{
+			
+			redirect("Correctamente/cambiar");
+			/*	$error = validation_errors();
+				$this->session->set_flashdata('cambiar',$error);
+				$Data = array('title' => 'Contraseña');
+				$this->load->view('guest/Head', $Data);
+				$this->load->view("/guest/Navegacion");
+				$Data = array('Post' => 'Cambiar contraseña' ,'Descripcion' =>'Ingrese el correo electronico con el que se registro y la contraseña nueva');
+				$this->load->view("/guest/Header",$Data);
+				$this->load->view("/usuarios/Cambiarpass");
+				$this->load->view("/guest/Footer");*/
+		}		
 	}
 }
 ?>

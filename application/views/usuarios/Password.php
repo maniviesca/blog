@@ -24,7 +24,16 @@
                 'style'=> 'width:40%',
                 'required');
                 echo "<br>Ingresa tu correo electronico: <br>";
+                 ?>
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('error');
+                echo $this->session->flashdata('correo_ele');
+                ?>
+                </div>
+                <?php
                 echo form_input($Data);
+
                 echo form_submit('confirmar','   Confirmar   ');//BOTON
                 echo form_close();
 ?>

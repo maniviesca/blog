@@ -1,25 +1,29 @@
 <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            	<style type="text/css">
+            	      <style type="text/css">
                  .error{
                     color:red;
-                 } 
+                    position: relative;
+                    
+                 }   
                  .mensaje{
                     color: blue;
                     text-align: center;
-                 }  
+                 }
                 </style>
 
-                <div class="error">
+          <div class="error">
                  <?php
-                 echo validation_errors();
-                 ?>   
-                </div>
+                echo validation_errors();
+                 ?> 
+            </div>
+                <div class="btn-toolbar">   
             	<?php
             	
                 echo form_open_multipart('Contenido/userInsert');
             	echo "<br>Nombre: <br>";
+                  
                 echo form_input('nombre','');
                 echo "<br>Apellido: <br>";
                 echo form_input('apellido','');
@@ -37,7 +41,7 @@
                 ?>
                  <div class="mensaje">
                 <?php
-                echo "NO OLVIDES TUS RESPUESTAS A LAS PREGUNTAS DE SEGURIDAD, YA QUE, EN CASO DE OLVIDAR LA CONTRASEÑA, ESTAS SON LA UNICA FORMA DE RECUPERARLA ";
+                echo "NO OLVIDES LAS RESPUESTAS A LAS PREGUNTAS DE SEGURIDAD, YA QUE, EN CASO DE OLVIDAR LA CONTRASEÑA, ESTAS SON LA ÚNICA FORMA DE RECUPERARLA ";
 
                 ?>
                 </div>
@@ -71,6 +75,13 @@
                 echo form_input('respuesta_dos','');
                 echo "<br>";
                 echo "<br>";
+                ?>
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('insert_user');
+                ?>
+                </div>
+                <?php
                 echo form_submit('crear','   Registrarse   ');
                 
             	echo form_close();

@@ -5,6 +5,10 @@
                  .error{
                     color:red;
                  }   
+                 .mensaje{
+                    color: blue;
+                    text-align: center;
+                 }
                 </style>
 
                 <div class="error">
@@ -14,8 +18,21 @@
                 </div>
             	<?php
             	echo form_open_multipart('Contenido/comment');
-            	
+            	 ?>
+                <div class="mensaje">
+                <?php
+                echo $this->session->flashdata('comment_corr');
+                ?>
+                </div>
+                <?php
                 echo "<br>Titulo:<br>";
+                  ?>
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('comment');
+                ?>
+                </div>
+                <?php
             	echo form_input('titulo','');
                 echo "<br>";
                 echo "<br>Contenido:";

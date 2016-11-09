@@ -90,5 +90,14 @@ public function password()
 		//$this->load->helper("bootstrap_helper")
 		$this->load->view("/guest/Footer");	
 }
+public function cambiar()
+{
+	$Data = array('title' => 'Contraseña');
+	$this->load->view('guest/Head', $Data);
+		$this->load->view("/guest/Navegacion");
+		$Data = array('Post' => 'Algo salio mal' ,'Descripcion' =>'Verifica que el correo que ingresaste es el correcto y que las contraseñas coincidan');
+		$this->load->view("/guest/Header",$Data);
+		//$this->load->view("/guest/Footer");	
+}
 }
 ?>

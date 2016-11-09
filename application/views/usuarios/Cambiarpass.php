@@ -24,12 +24,26 @@
                 'style'=> 'width:27%',
                 'required');
                 echo "<br>Correo electronico: <br>";
+                     ?>
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('correo_change');
+                ?>
+                </div>
+                <?php
                 echo form_input($Data);
                 echo "<br>Contraseña nueva:<br>";
                 echo form_password('password','');
                 echo "<br>Verificar contraseña:<br>";
                 echo form_password('verificar','');
                 echo "<br>";
+               ?>
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('cambiar');
+                ?>
+                </div>
+                <?php
                 echo form_submit('cambiar','   Cambiar   ');//BOTON
                 echo form_close();
 ?>

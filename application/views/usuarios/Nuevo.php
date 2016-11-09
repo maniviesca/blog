@@ -1,6 +1,7 @@
 <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            </div>
             	   <style type="text/css">
                  .error{
                     color:red;
@@ -15,7 +16,11 @@
 
                 </div>
             	<div class="btn-toolbar">
-
+                <div class="error">
+                <?php
+                echo $this->session->flashdata('error');
+                ?>
+                </div>
                 <?php
                 echo form_open_multipart('Contenido/insert');//TITULO
                 $Data= array

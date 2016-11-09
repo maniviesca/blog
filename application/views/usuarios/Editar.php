@@ -20,7 +20,13 @@
                 echo form_open_multipart('Contenido/actualizar');//TITULO
               
                 echo form_hidden('id_post',$Id);
-
+                ?>
+                 <div class="error">
+                <?php
+               // echo $this->session->flashdata('no_actualizado');
+                ?>
+                </div>
+                <?php
                 $Data= array
                 (
                 'name' =>  'titulo',
