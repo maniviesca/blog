@@ -40,6 +40,10 @@
 
                 echo "<br>";
                 echo "<br>Contenido: <br>";
+                ?>
+                 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+                <script>tinymce.init({ selector:'textarea' });</script>
+                <?php
                 echo form_textarea('contenido',$Contenido);   //CONTENIDO             
                echo "<br>";
                 $Data=  array(

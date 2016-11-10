@@ -15,6 +15,11 @@
                 <div class="error">
                  <?php
                 echo validation_errors();
+                //echo $this->session->flashdata('verificar');
+                echo $this->session->flashdata('nombre');
+                echo "<br>";
+                echo $this->session->flashdata('apellido');
+                echo $this->session->flashdata('respuestauno');
                  ?> 
                 </div>
                     <div class="site-heading">

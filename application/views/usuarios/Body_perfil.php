@@ -11,7 +11,7 @@
                         <?=$Fila->titulo_post?>
                     </h2>
                     <h3 class="post-subtitle">
-                        <?=$Fila->cont_post?>
+                        <?=substr($Fila->cont_post,0,50);echo'...'?>
                     </h3>
             </a>
                     <p class="post-meta">Posted by <?=$Fila->nom_usuario?></a> on <?=$Fila->fecha_post?></p>

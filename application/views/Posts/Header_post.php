@@ -1,5 +1,4 @@
 
-<? echo validation_errors();?>
 <header >
 <body > 
         <div class="container">

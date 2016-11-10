@@ -15,6 +15,7 @@ class Contenido extends CI_Controller
 		if($Data!=false){
 		$this->load->model("Comentario");
 		$Fila = $this->Post->getPostByName($Name);
+		
 		$Data = array('title' =>$Fila->titulo_post);
 		$this->load->view("/guest/Head",$Data);
 		$Data = array('app' => 'Blog');
@@ -94,7 +95,7 @@ public function userNuevo()//crear usuario nuevo
 					 	{// if validation
 							$Data = array(
 							'titulo_post' =>htmlspecialchars(( $this->input->post('titulo'))),
-							'cont_post' =>($this->input->post('contenido')),
+							'cont_post' =>htmlspecialchars(($this->input->post('contenido'))),
 							'Imagen' => $this->upload->data('file_name'),
 							//'Imagen' => $this->upload->data('Imagen'),
 							'nom_usuario' => $this->session->userdata['login']['nom_usuario']);
@@ -137,11 +138,10 @@ public function userNuevo()//crear usuario nuevo
 				{
 				$Data = array(
 				'titulo_post' =>htmlspecialchars(( $this->input->post('titulo'))),
-				'cont_post' =>($this->input->post('contenido')),
+				'cont_post' =>htmlspecialchars(($this->input->post('contenido'))),
 				'Imagen' => $this->upload->data('file_name'),
 				'nom_usuario' => $this->session->userdata['login']['nom_usuario']);
 			
-
 				if($this->Post->insert('post',$Data))
 				{//if thispostinsert
 					$this->db->escape($Data);
@@ -155,7 +155,6 @@ public function userNuevo()//crear usuario nuevo
 					//flashdata
 					//redirect
 				}//else
-
 				//header("Location". base_url() . "Correctamente");//arreglar esto				}
 				}
 				else
@@ -169,7 +168,6 @@ public function userNuevo()//crear usuario nuevo
 					$this->load->view("/usuarios/Nuevo");
 					$this->load->view("/guest/Footer");
 				}//else
-
 		/*$File_name = $this->File->UploadImage('./public/img','No es posible subir la imagen');
 			$Post['file_name'] = $File_name;
 			$Bool = $this->Post->insert($Post);}*/
@@ -180,8 +178,8 @@ public function userNuevo()//crear usuario nuevo
 		$this->load->model("Crear_usuario");
 		$this->load->library('form_validation');
 	//S	$this->load->library('Bcrypt');
-		$this->form_validation->set_rules('nombre', 'Nombre','trim|required|strtolower|alpha');
-		$this->form_validation->set_rules('apellido', 'Apellido','trim|required|strtolower|alpha');
+		$this->form_validation->set_rules('nombre', 'Nombre','trim|required|strtolower');
+		$this->form_validation->set_rules('apellido', 'Apellido','trim|required|strtolower');
 		$this->form_validation->set_rules('usuario', 'Usuario','trim|required|is_unique[usuario.nom_usuario]|strtolower');
 		$this->form_validation->set_rules('password', 'Contraseña','trim|required|matches[passwordver]|min_length[8]');
 		$this->form_validation->set_rules('passwordver', 'Verificación de contraseña','trim|required');
@@ -195,8 +193,6 @@ public function userNuevo()//crear usuario nuevo
 		$this->form_validation->set_message('is_unique','Ya existe este %s');
 		$this->form_validation->set_message('matches','Las contraseñas no coinciden');
 		$this->form_validation->set_message('min_length','El campo %s tiene que tener al menos 8 caractéres');
-		$this->form_validation->set_message('alpha','El campo %s no puede contenter números');
-
 		if ($this->form_validation->run()== TRUE) {
 			$Usuario = array(
 				'nombre' =>htmlspecialchars($this->input->post('nombre')),
@@ -261,10 +257,8 @@ public function userNuevo()//crear usuario nuevo
 		$this->Post->delete($Id);
 		$this->Comentario->delete($Id);
 		//echo $Id;
-
 		$this->session->set_flashdata('eliminado','Post eliminado correctamente');
 		redirect("Perfil/index");
-		
 	}
 	public function deleteComment()//eliminar comentario
 	{
@@ -272,9 +266,7 @@ public function userNuevo()//crear usuario nuevo
 		$Id =$this->input->post('id_comentario');
 		$this->Comentario->deleteComment($Id);
 		
-		$this->session->set_flashdata('comment_deleted','Comentario eliminado correctamente');
-		$Post = $this->input->post('id_post');
-		redirect("Contenido/Post/".$Post);	
+		redirect("/");
 	}
 	public function editar()//vista de actualizar post
 	{
@@ -411,7 +403,6 @@ public function actualizar()//actualizar post
 		
 		if ($this->form_validation->run() == TRUE)
 		 {
-
 				$Correo = htmlspecialchars($this->input->post('correo'));
 				$Fila = $this->Crear_usuario->getUsuario($Correo);
 			if($Correo == $Fila->mail_usuario){
@@ -434,7 +425,6 @@ public function actualizar()//actualizar post
 				$this->session->set_flashdata('correo_ele',$mail);
 				redirect("Contenido/password");
 			}
-
 		}else{
 			$error = validation_errors();
 			$this->session->set_flashdata('error',$error);
@@ -456,8 +446,7 @@ public function actualizar()//actualizar post
 		 	$Respuestauno = htmlspecialchars($this->input->post('respuestauno'));
 		 	$Respuestados = htmlspecialchars($this->input->post('respuestados'));
 		 	$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-		 	/*if($this->input->post('name') == $Fila->nombre && $this->input->post('lastname') == $Fila->apellido && password_verify($Respuestauno,$Fila->respuesta_uno) && password_verify($Respuestados,$Fila->respuesta_dos))
-
+		 	if($this->input->post('name') == $Fila->nombre && $this->input->post('lastname') == $Fila->apellido && password_verify($Respuestauno,$Fila->respuesta_uno) && password_verify($Respuestados,$Fila->respuesta_dos))
 		 	{
 		 		$Data = array('title' => 'Contraseña');
 				$this->load->view('guest/Head', $Data);
@@ -472,94 +461,8 @@ public function actualizar()//actualizar post
 					);
 				$this->load->view("/usuarios/Cambiarpass",$Data);
 				$this->load->view("/guest/Footer");
-
-		 	}
-		 	else
-		 	{*/
-		 			if (strtolower($this->input->post('name')) == $Fila->nombre) //si el nombre no coincide
-		 				{ //if nombre
-		 					if(strtolower($this->input->post('lastname')) == $Fila->apellido)
-		 					{//if apellido
-		 						if(password_verify(strtolower($Respuestauno),$Fila->respuesta_uno))
-		 						{//if respuesta uno
-		 							if(password_verify(strtolower($Respuestados),$Fila->respuesta_dos))
-		 							{//if respuesta dos
-		 									$Data = array('title' => 'Contraseña');
-											$this->load->view('guest/Head', $Data);
-											$this->load->view("/guest/Navegacion");
-											$Data = array('Post' => 'Cambiar contraseña' ,'Descripcion' =>'Ingrese el correo electronico con el que se registro y la contraseña nueva');
-											$this->load->view("/guest/Header",$Data);
-											$Data = array (
-												'name' => strtolower($this->input->post('name')),
-												'lastname' => strtolower($this->input->post('lastname')),
-												'respuestauno' => strtolower($this->input->post('respuestauno')),
-												'respuestados' => strtolower($this->input->post('respuestados')),
-												);
-											$this->load->view("/usuarios/Cambiarpass",$Data);
-											$this->load->view("/guest/Footer");
-		 							}//if respuesta dos
-		 						}//if respuesta uno 
-		 						else //respuesta uno
-		 						{//else respuesta uno
-			 						$this->session->set_flashdata('respuestauno','la respuesta a la pregunta uno no es correcta');
-									$error = validation_errors();
-									$this->session->set_flashdata('verificar',$error);
-									$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-									$Data = array('title' => 'Contraseña');
-									$this->load->view('guest/Head', $Data);
-									$this->load->view("/guest/Navegacion");
-									$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente EN MINUSCULAS!');
-									$this->load->view("/guest/Header",$Data);
-									$Data = array(
-									'correo' => $Fila->mail_usuario,
-									'pregunta_uno' => $Fila->pregunta_uno,
-									'pregunta_dos' => $Fila->pregunta_dos);
-									$this->load->view('/usuarios/Recuperar',$Data);
-									$this->load->view("/guest/Footer");
-		 						}//else respuesta uno
-		 					}//if apellido
-							
-							else//else apellido
-							{//else apellido
-								$this->session->set_flashdata('apellido','el apellido no es correcto');
-								$error = validation_errors();
-								$this->session->set_flashdata('verificar',$error);
-								$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-								$Data = array('title' => 'Contraseña');
-								$this->load->view('guest/Head', $Data);
-								$this->load->view("/guest/Navegacion");
-								$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente EN MINUSCULAS!');
-								$this->load->view("/guest/Header",$Data);
-								$Data = array(
-								'correo' => $Fila->mail_usuario,
-								'pregunta_uno' => $Fila->pregunta_uno,
-								'pregunta_dos' => $Fila->pregunta_dos);
-								$this->load->view('/usuarios/Recuperar',$Data);
-								$this->load->view("/guest/Footer");
-							}// else apellido
-						}//if nombre
-						else //else nombre
-							{//else nombre
-							$this->session->set_flashdata('nombre','el nombre no es correcto');
-							$error = validation_errors();
-							$this->session->set_flashdata('verificar',$error);
-							$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-							$Data = array('title' => 'Contraseña');
-							$this->load->view('guest/Head', $Data);
-							$this->load->view("/guest/Navegacion");
-							$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente EN MINUSCULAS!');
-							$this->load->view("/guest/Header",$Data);
-							$Data = array(
-							'correo' => $Fila->mail_usuario,
-							'pregunta_uno' => $Fila->pregunta_uno,
-							'pregunta_dos' => $Fila->pregunta_dos);
-							$this->load->view('/usuarios/Recuperar',$Data);
-							$this->load->view("/guest/Footer");
-						//}// else nombre
-		 		
 		 	}
 		 }else{
-
 		 	$error = validation_errors();
 			$this->session->set_flashdata('verificar',$error);
 			$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
@@ -573,10 +476,8 @@ public function actualizar()//actualizar post
 					'pregunta_uno' => $Fila->pregunta_uno,
 					'pregunta_dos' => $Fila->pregunta_dos
 					);
-
 				$this->load->view('/usuarios/Recuperar',$Data);
 				$this->load->view("/guest/Footer");
-
 		 	//redirect("Contenido/recuperar");
 		 }
 	}

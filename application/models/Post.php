@@ -8,12 +8,16 @@ class Post extends CI_Model
 		
 
 	}
+	public function cutPost($Id = '')
+	{
+		$limite = '100';
+		$Result = $this->db->get_where('post',array('id_post' => $Id),$limite);
+		return  $Result->row();
+	} 
 	public function getPostByName($Name ='')
 	{
-		//$Result = $this->db->from('post')->where(array('id_post' => $Name))->order_by('fecha_post', 'ASC')->get();
+	
 		$Result = $this->db->get_where('post',array('id_post' => $Name));
-
-		//$Result = $this->db->get_where('post',array('id_post' => $Name))->order_by("fecha_post","ASC");
 		return  $Result->row();
 
 	}

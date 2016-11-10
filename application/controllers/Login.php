@@ -15,16 +15,20 @@ class Login extends CI_Controller
 		if($Fila != null){
 			if(password_verify($Password,$Fila->pass_usuario)){
 				$Usuario = array(	
-			'Email' => $Email,
-			'id'	=> $Fila->id_usuario,
-			'nom_usuario' =>$Fila->nom_usuario,
-			'login' => true);
+					'Email' => $Email,
+					'id'	=> $Fila->id_usuario,
+					'nom_usuario' =>$Fila->nom_usuario,
+					'login' => TRUE);
+				
 				$this->session->set_userdata('login',$Usuario);
 				redirect("/");
 
 			}else
 			{
+				
 				$this->session->set_flashdata('login','Usuario o contraseña incorrectos');
+				//var_dump($Usuario);exit;
+				$this->session->sess_destroy();
 				redirect("/");
 				
 				//header("Location:".base_url());

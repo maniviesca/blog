@@ -1,6 +1,4 @@
 <body>
-
-    
    
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -14,7 +12,7 @@
 
                     
                     
-                    <?php if ($this->session->userdata('login')){?>
+                    <?php if ($this->session->userdata('login') == TRUE){?>
                     <li> 
                         <a href="<?=base_url()?>Perfil/index">Perfil</a> 
                     </li>

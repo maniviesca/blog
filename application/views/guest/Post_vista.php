@@ -5,6 +5,10 @@
                  .error{
                     color:red;
                  }   
+                 .texto{
+                  width: 700%;
+                
+                 }
                 </style>
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <?php
@@ -32,8 +36,11 @@
                  }
                    }
                    ?>
-                   <h3><p><?=$Contenido?></p></h3>
-                
+                   
+                   <div style="width: 800px; word-wrap:break-word;">
+                   <h4><p><?=$Contenido?></p></h4>
+                   </div>
+                   </table>
                 </div>
             </div>
         </div>
