@@ -24,18 +24,18 @@
                 echo form_open_multipart('Contenido/userInsert');
             	echo "<br>Nombre: <br>";
                   
-                echo form_input('nombre','');
+                echo form_input('nombre',$this->session->flashdata('nombre_user'));
                 echo "<br>Apellido: <br>";
-                echo form_input('apellido','');
+                echo form_input('apellido',$this->session->flashdata('apellido_user'));
                 echo "<br>Usuario: <br>";
-            	echo form_input('usuario','');
+            	echo form_input('usuario',$this->session->flashdata('usuario_user'));
             	echo "<br>Contraseña:<br>";
-            	echo form_password('password','');
+            	echo form_password('password',$this->session->flashdata('password_user'));
                 echo "<br>Verificar contraseña:<br>";
                 echo form_password('passwordver','');
                 echo "<br>";
             	echo "Email:<br>";
-            	echo form_input('email','');
+            	echo form_input('email',$this->session->flashdata('correo_user'));
             	echo "<br>";
                 echo "<br>";
                 ?>
@@ -59,7 +59,7 @@
                     );
                 echo form_dropdown('pregunta_uno',$Opciones);
                 echo "<br>Respuesta 1: <br>";
-                echo form_input('respuesta_uno','');
+                echo form_input('respuesta_uno',$this->session->flashdata('uno_user'));
                 echo "<br>";
                 echo "Pregunta de seguridad 2:";
                 echo "<br>";
@@ -72,7 +72,7 @@
                     );
                 echo form_dropdown('pregunta_dos',$Opciones);
                 echo "<br>Respuesta 2: <br>";
-                echo form_input('respuesta_dos','');
+                echo form_input('respuesta_dos',$this->session->flashdata('dos_user'));
                 echo "<br>";
                 echo "<br>";
                 ?>

@@ -8,38 +8,27 @@ class Login extends CI_Controller
 		$Email 	 	= $this->input->post('email');
 		$Password 	= $this->input->post('password');
 	
-
 		$this->load->model("Usuario");
 		$Fila = $this->Usuario->getUser($Email);
 
-		if($Fila != null){
+		if($Fila != null)
+		{
 			if(password_verify($Password,$Fila->pass_usuario)){
 				$Usuario = array(	
 					'Email' => $Email,
 					'id'	=> $Fila->id_usuario,
 					'nom_usuario' =>$Fila->nom_usuario,
 					'login' => TRUE);
-				
 				$this->session->set_userdata('login',$Usuario);
 				redirect("/");
-
-			}else
-			{
-				
-				$this->session->set_flashdata('login','Usuario o contraseña incorrectos');
-				//var_dump($Usuario);exit;
-				$this->session->sess_destroy();
-				redirect("/");
-				
-				//header("Location:".base_url());
 			}
-		}else
-			{
-				redirect("/");
-				//header("Location:".base_url());
-			}		
+			else{
+				$this->session->set_flashdata('login','Usuario o contraseña incorrectos');
+				$this->session->sess_destroy();
+				redirect("/");}
+		}
+		else{ redirect("/");}		
 	}
-
 	public function logout()
 	{
 		$this->session->sess_destroy();

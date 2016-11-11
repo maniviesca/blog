@@ -16,10 +16,39 @@
                  <?php
                 echo validation_errors();
                 //echo $this->session->flashdata('verificar');
-                echo $this->session->flashdata('nombre');
-                echo "<br>";
-                echo $this->session->flashdata('apellido');
-                echo $this->session->flashdata('respuestauno');
+                $nombre = $this->session->flashdata('nombre');
+                if($nombre)
+                {echo "<div class= 'alert alert-warning'> 
+                <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                <strong>$nombre;</strong> 
+              </div>";
+                }
+                 $apellido = $this->session->flashdata('apellido');
+                if($apellido)
+                {echo "<div class= 'alert alert-warning'> 
+                <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                <strong>$apellido;</strong> 
+              </div>";
+                }
+                 $respuestauno = $this->session->flashdata('respuestauno');
+                if($respuestauno)
+                {echo "<div class= 'alert alert-warning'> 
+                <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                <strong>$respuestauno;</strong> 
+              </div>";
+                }
+                  $respuestados = $this->session->flashdata('respuestados');
+                if($respuestados)
+                {echo "<div class= 'alert alert-warning'> 
+                <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                <strong>$respuestados;</strong> 
+              </div>";
+                }
+                //echo $this->session->flashdata('nombre');
+                //echo "<br>";
+               // echo $this->session->flashdata('apellido');
+                //echo $this->session->flashdata('respuestauno');
+                //echo $this->session->flashdata('respuestados');
                  ?> 
                 </div>
                     <div class="site-heading">
@@ -27,9 +56,9 @@
                   echo form_hidden('correo',$correo)
                   ?>
                     <h4>Nombre:</h4>
-                        <?php echo form_input('name',''); ?>
+                        <?php echo form_input('name',$this->session->flashdata('nombre_form')); ?>
                     <h4>Apellido:</h4>
-                       <?php echo form_input('lastname',''); ?>
+                       <?php echo form_input('lastname',$this->session->flashdata('apellido_form')); ?>
 
 
                     <h4> Pregunta 1:
@@ -44,7 +73,7 @@
                     <?php
                     echo "Respuesta:";
                     echo "<br>";
-                    echo form_input('respuestauno','');
+                    echo form_input('respuestauno',$this->session->flashdata('uno_form'));
                     ?>
                      <h4>Pregunta 2:
                      <div class="pregunta">
@@ -58,7 +87,7 @@
                     <?php
                     echo "Respuesta:";
                     echo "<br>";
-                    echo form_input('respuestados','');
+                    echo form_input('respuestados',$this->session->flashdata('dos_form'));
                     echo "<br>";
                     echo "<br>";
                     echo form_submit('verificar','   Verificar   ');
