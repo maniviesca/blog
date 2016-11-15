@@ -432,7 +432,7 @@ public function actualizar()//actualizar post
 				$Data = array('title' => 'Contraseña');
 				$this->load->view('guest/Head', $Data);
 				$this->load->view("/guest/Navegacion");
-				$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente y en mínusculas');
+				$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
 				$this->load->view("/guest/Header",$Data);
 				$Correo = htmlspecialchars($this->input->post('correo'));
 				$Fila = $this->Crear_usuario->getUsuario($Correo);
@@ -455,162 +455,150 @@ public function actualizar()//actualizar post
 		}
 		
 	}
+	public function correcto()
+	{
+		$Data = array('title' => 'Contraseña');
+		$this->load->view('guest/Head', $Data);
+		$this->load->view("/guest/Navegacion");
+		$Data = array('Post' => 'Cambiar contraseña' ,'Descripcion' =>'Ingrese el correo electronico con el que se registro y la contraseña nueva');
+		$this->load->view("/guest/Header",$Data);
+		$Data = array (
+			'name' => strtolower($this->input->post('name')),
+			'lastname' => strtolower($this->input->post('lastname')),
+			'respuestauno' => strtolower($this->input->post('respuestauno')),
+			'respuestados' => strtolower($this->input->post('respuestados')));
+		$this->load->view("/usuarios/Cambiarpass",$Data);
+		$this->load->view("/guest/Footer");
+	}
+	public function incorrecto()
+	{
+		$this->load->model('Crear_usuario');	
+		$Data = array('title' => 'Contraseña');
+		$this->load->view('guest/Head', $Data);
+		$this->load->view("/guest/Navegacion");
+		$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
+		$this->load->view("/guest/Header",$Data);
+		$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+		$Arreglo = array(
+				'correo' => $Fila->mail_usuario,
+				'pregunta_uno' => $Fila->pregunta_uno,
+				'pregunta_dos' => $Fila->pregunta_dos);
+		$this->load->view('/usuarios/Recuperar',$Arreglo);
+		$this->load->view("/guest/Footer");
+	}
 	public function verificar()//validar si los datos introducidos son correctos
 	{
 		$this->load->model('Crear_usuario');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('name', 'Nombre','trim|required');
-		$this->form_validation->set_rules('lastname', 'Apellido','trim|required');
+		$this->form_validation->set_rules('lastname', 'Apellido','trim|required|alpha|alpha');
 		$this->form_validation->set_rules('respuestauno', 'Respuesta uno','trim|required');
 		$this->form_validation->set_rules('respuestados', 'Respuesta dos','trim|required');
 		$this->form_validation->set_message('required','El campo %s es obligatorio');
+		$this->form_validation->set_message('alpha','El campo %s no puede tener numeros');
 		 if ($this->form_validation->run() == TRUE) 
 		 {
-		 	$Respuestauno = htmlspecialchars($this->input->post('respuestauno'));
-		 	$Respuestados = htmlspecialchars($this->input->post('respuestados'));
+		 	$name = $this->input->post('name');
+			$lastname = $this->input->post('lastname');
+			$respuestauno = $this->input->post('respuestauno');
+			$respuestados = $this->input->post('respuestados');
 		 	$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-		 	if (strtolower($this->input->post('name')) == $Fila->nombre) //si el nombre no coincide
+		 	$this->session->set_flashdata('nombre_form',$name);
+			$this->session->set_flashdata('apellido_form',$lastname);
+			$this->session->set_flashdata('uno_form',$respuestauno);
+			$this->session->set_flashdata('dos_form',$respuestados);
+			
+		 	if (strtolower($this->input->post('name')) == $Fila->nombre) //si el nombre coincide
 		 		{ //if nombre
 		 		if(strtolower($this->input->post('lastname')) == $Fila->apellido)
 					{//if apellido
- 	 					if(password_verify(strtolower($Respuestauno),$Fila->respuesta_uno))
+ 	 					if(password_verify(strtolower($respuestauno),$Fila->respuesta_uno))
 	 						{//if respuesta uno
-	 							if(password_verify(strtolower($Respuestados),$Fila->respuesta_dos))
+	 							if(password_verify(strtolower($respuestados),$Fila->respuesta_dos))
 	 							{//if respuesta dos
- 								$Data = array('title' => 'Contraseña');
-								$this->load->view('guest/Head', $Data);
-								$this->load->view("/guest/Navegacion");
-								$Data = array('Post' => 'Cambiar contraseña' ,'Descripcion' =>'Ingrese el correo electronico con el que se registro y la contraseña nueva');
-								$this->load->view("/guest/Header",$Data);
-								$Data = array (
-								'name' => strtolower($this->input->post('name')),
-								'lastname' => strtolower($this->input->post('lastname')),
-								'respuestauno' => strtolower($this->input->post('respuestauno')),
-								'respuestados' => strtolower($this->input->post('respuestados')));
-								$this->load->view("/usuarios/Cambiarpass",$Data);
-								$this->load->view("/guest/Footer");
+	 								redirect("Contenido/correcto");
 		 						}//if respuesta dos
 		 						else//else respuesta dos
 		 						{
-		 						$name = $this->input->post('name');
-							 	$lastname = $this->input->post('lastname');
-								$respuestauno = $this->input->post('respuestauno');
-								$respuestados = $this->input->post('respuestados');
-								//$this->session->set_userdata('formulario',$Info);
-								$this->session->set_flashdata('nombre_form',$name);
-								$this->session->set_flashdata('apellido_form',$lastname);
-								$this->session->set_flashdata('uno_form',$respuestauno);
-								$this->session->set_flashdata('dos_form',$respuestados);
-		 						$this->session->set_flashdata('respuestados','la respuesta a la pregunta dos no es correcta');
-								$error = validation_errors();
-								$this->session->set_flashdata('verificar',$error);
-								$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
-								$Data = array('title' => 'Contraseña');
-								$this->load->view('guest/Head', $Data);
-								$this->load->view("/guest/Navegacion");
-								$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente EN MINUSCULAS!');
-								$this->load->view("/guest/Header",$Data);
-								$Data = array(
-								'correo' => $Fila->mail_usuario,
-								'pregunta_uno' => $Fila->pregunta_uno,
-								'pregunta_dos' => $Fila->pregunta_dos);
-								$this->load->view('/usuarios/Recuperar',$Data);
-								$this->load->view("/guest/Footer");
+			 						$this->session->set_tempdata('respuestados','la respuesta a la pregunta dos no es correcta',2);
+									$error = validation_errors();
+									$this->session->set_flashdata('verificar',$error);
+									$this->load->model('Crear_usuario');	
+									$Data = array('title' => 'Contraseña');
+									$this->load->view('guest/Head', $Data);
+									$this->load->view("/guest/Navegacion");
+									$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
+									$this->load->view("/guest/Header",$Data);
+									$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+									$Arreglo = array(
+											'correo' => $Fila->mail_usuario,
+											'pregunta_uno' => $Fila->pregunta_uno,
+											'pregunta_dos' => $Fila->pregunta_dos);
+									$this->load->view('/usuarios/Recuperar',$Arreglo);
+									$this->load->view("/guest/Footer");
+									return;
 		 						}//else respuesta dos
 		 					}//if respuesta uno 
 		 					else //respuesta uno
 		 					{//else respuesta uno
-		 					$name = $this->input->post('name');
-						 	$lastname = $this->input->post('lastname');
-							$respuestauno = $this->input->post('respuestauno');
-							$respuestados = $this->input->post('respuestados');
-							//$this->session->set_userdata('formulario',$Info);
-							$this->session->set_flashdata('nombre_form',$name);
-							$this->session->set_flashdata('apellido_form',$lastname);
-							$this->session->set_flashdata('uno_form',$respuestauno);
-							$this->session->set_flashdata('dos_form',$respuestados);
-			 					$this->session->set_flashdata('respuestauno','la respuesta a la pregunta uno no es correcta');
+			 				$this->session->set_tempdata('respuestauno','la respuesta a la pregunta uno no es correcta',2);
 							$error = validation_errors();
 							$this->session->set_flashdata('verificar',$error);
-							$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+							$this->load->model('Crear_usuario');	
 							$Data = array('title' => 'Contraseña');
 							$this->load->view('guest/Head', $Data);
 							$this->load->view("/guest/Navegacion");
-							$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente!');
+							$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
 							$this->load->view("/guest/Header",$Data);
-							$Data = array(
-							'correo' => $Fila->mail_usuario,
-							'pregunta_uno' => $Fila->pregunta_uno,
-							'pregunta_dos' => $Fila->pregunta_dos);
-							$this->load->view('/usuarios/Recuperar',$Data);
+							$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+							$Arreglo = array(
+									'correo' => $Fila->mail_usuario,
+									'pregunta_uno' => $Fila->pregunta_uno,
+									'pregunta_dos' => $Fila->pregunta_dos);
+							$this->load->view('/usuarios/Recuperar',$Arreglo);
 							$this->load->view("/guest/Footer");
+							return;
 		 					}//else respuesta uno
 		 					}//if apellido
-							
 					else//else apellido
 					{//else apellido
-					$name = $this->input->post('name');
-					$lastname = $this->input->post('lastname');
-					$respuestauno = $this->input->post('respuestauno');
-					$respuestados = $this->input->post('respuestados');
-					//$this->session->set_userdata('formulario',$Info);
-					$this->session->set_flashdata('nombre_form',$name);
-					$this->session->set_flashdata('apellido_form',$lastname);
-					$this->session->set_flashdata('uno_form',$respuestauno);
-					$this->session->set_flashdata('dos_form',$respuestados);
-					$this->session->set_flashdata('apellido','el apellido no es correcto');
-					$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+					$this->session->set_tempdata('apellido','el apellido no es correcto',2);
+					$this->load->model('Crear_usuario');	
 					$Data = array('title' => 'Contraseña');
 					$this->load->view('guest/Head', $Data);
 					$this->load->view("/guest/Navegacion");
-					$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente!');
+					$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
 					$this->load->view("/guest/Header",$Data);
-					$Data = array(
-					'correo' => $Fila->mail_usuario,
-					'pregunta_uno' => $Fila->pregunta_uno,
-					'pregunta_dos' => $Fila->pregunta_dos);
-					$this->load->view('/usuarios/Recuperar',$Data);
+					$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+					$Arreglo = array(
+							'correo' => $Fila->mail_usuario,
+							'pregunta_uno' => $Fila->pregunta_uno,
+							'pregunta_dos' => $Fila->pregunta_dos);
+					$this->load->view('/usuarios/Recuperar',$Arreglo);
 					$this->load->view("/guest/Footer");
-
+					return;
 					}// else apellido
 				}//if nombre
 				else //else nombre
 				{//else nombre
-				$name = $this->input->post('name');
-				$lastname = $this->input->post('lastname');
-				$respuestauno = $this->input->post('respuestauno');
-				$respuestados = $this->input->post('respuestados');
-				//$this->session->set_userdata('formulario',$Info);
-				$this->session->set_flashdata('nombre_form',$name);
-				$this->session->set_flashdata('apellido_form',$lastname);
-				$this->session->set_flashdata('uno_form',$respuestauno);
-				$this->session->set_flashdata('dos_form',$respuestados);
-				$this->session->set_flashdata('nombre','el nombre no es correcto');				
-				$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+				$this->session->set_tempdata('nombre','el nombre no es correcto',2);				
+				$this->load->model('Crear_usuario');	
 				$Data = array('title' => 'Contraseña');
 				$this->load->view('guest/Head', $Data);
 				$this->load->view("/guest/Navegacion");
 				$Data = array('Post' => 'Recuperar contraseña' ,'Descripcion' =>'Favor de contestar las siguientes preguntas correctamente');
 				$this->load->view("/guest/Header",$Data);
-				$Data = array(
-				'correo' => $Fila->mail_usuario,
-				'pregunta_uno' => $Fila->pregunta_uno,
-				'pregunta_dos' => $Fila->pregunta_dos);
-				$this->load->view('/usuarios/Recuperar',$Data);
+				$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
+				$Arreglo = array(
+						'correo' => $Fila->mail_usuario,
+						'pregunta_uno' => $Fila->pregunta_uno,
+						'pregunta_dos' => $Fila->pregunta_dos);
+				$this->load->view('/usuarios/Recuperar',$Arreglo);
 				$this->load->view("/guest/Footer");
-			
+				return;
 		 	}
 		 }else
-		 {//else validation
-		$name = $this->input->post('name');
-		$lastname = $this->input->post('lastname');
-		$respuestauno = $this->input->post('respuestauno');
-		$respuestados = $this->input->post('respuestados');
-		//$this->session->set_userdata('formulario',$Info);
-		$this->session->set_flashdata('nombre_form',$name);
-		$this->session->set_flashdata('apellido_form',$lastname);
-		$this->session->set_flashdata('uno_form',$respuestauno);
-		$this->session->set_flashdata('dos_form',$respuestados);
+		 {//else validation;	
 		$error = validation_errors();
 		$this->session->set_flashdata('verificar',$error);
 		$Fila = $this->Crear_usuario->getUsuario($this->input->post('correo'));
@@ -625,7 +613,7 @@ public function actualizar()//actualizar post
 		'pregunta_dos' => $Fila->pregunta_dos);
 		$this->load->view('/usuarios/Recuperar',$Data);
 		$this->load->view("/guest/Footer");
-		 }
+		 }//validation
 	}
 }
 ?>

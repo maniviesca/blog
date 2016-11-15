@@ -16,28 +16,28 @@
                  <?php
                 echo validation_errors();
                 //echo $this->session->flashdata('verificar');
-                $nombre = $this->session->flashdata('nombre');
+                $nombre = $this->session->tempdata('nombre');
                 if($nombre)
                 {echo "<div class= 'alert alert-warning'> 
                 <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
                 <strong>$nombre;</strong> 
               </div>";
                 }
-                 $apellido = $this->session->flashdata('apellido');
+                 $apellido = $this->session->tempdata('apellido');
                 if($apellido)
                 {echo "<div class= 'alert alert-warning'> 
                 <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
                 <strong>$apellido;</strong> 
               </div>";
                 }
-                 $respuestauno = $this->session->flashdata('respuestauno');
+                 $respuestauno = $this->session->tempdata('respuestauno');
                 if($respuestauno)
                 {echo "<div class= 'alert alert-warning'> 
                 <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
                 <strong>$respuestauno;</strong> 
               </div>";
                 }
-                  $respuestados = $this->session->flashdata('respuestados');
+                  $respuestados = $this->session->tempdata('respuestados');
                 if($respuestados)
                 {echo "<div class= 'alert alert-warning'> 
                 <a href='verificar' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
